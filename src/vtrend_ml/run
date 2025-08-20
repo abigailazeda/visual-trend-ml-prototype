@@ -1,0 +1,5 @@
+# 1) Build features first
+python scripts/process_features.py --data data/processed --out data/processed/features.npz
+
+# 2) Train + eval SVM
+python -m vtrend_ml.svm_train_eval --features data/processed/features.npz --out runs/svm_model.joblib
