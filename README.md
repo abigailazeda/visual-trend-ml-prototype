@@ -33,6 +33,28 @@ python -m vtrend_ml.evaluate --ckpt runs/best.ckpt --config configs/config.yaml
 ## Structure
 See comments inside `scripts/` and `src/vtrend_ml/` for details.
 
+## How to Train
+### Training & Evaluation
+
+**SVM (features)**
+```bash
+python scripts/process_features.py --data data/processed --out data/processed/features.npz
+python -m vtrend_ml.svm_train_eval --features data/processed/features.npz --out runs/svm_model.joblib
+
+**CNN (Image)**
+```bash
+python -m vtrend_ml.cnn_train_eval --data data/processed --epochs 5 --ckpt runs/cnn_best.ckpt
+
+**LSTM (Caption)**
+```bash
+python -m vtrend_ml.lstm_text_train_eval --labels data/processed/labels.json --epochs 5 --ckpt runs/lstm_text.ckpt
+
+
+---
+
+If you want, I can also add a **fusion experiment** later (combine CNN image probability + LSTM caption probability → logistic regression meta-model) so you can show a “multimodal” result in your slides.
+
+
 ## Citation
 ```
 @software{visual-trend-ml-prototype,
